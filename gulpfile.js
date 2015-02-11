@@ -13,9 +13,11 @@ var gulp = require('gulp'),
 
 	});
 
+
 /**
  * Settings
  */
+
 
 // directory
 var dir = {
@@ -26,7 +28,6 @@ var dir = {
 	min: 'htdocs/min',
 	partials: 'htdocs/sass/partials'
 };
-
 
 // error notification settings for plumber
 var plumberErrorHandler = { errorHandler: $.notify.onError({
@@ -59,7 +60,7 @@ gulp.task('bs-reload', function () {
 
 // compile sass
 gulp.task('sass', function() {
-	gulp.src(dir.sass + '/*.scss')
+	return gulp.src(dir.sass + '/*.scss')
 	.pipe($.plumber(plumberErrorHandler))
 	.pipe($.sass())
 	.pipe($.please({
@@ -76,24 +77,24 @@ gulp.task('minifyCSS', function() {
     return gulp.src([dir.css + '/*.css'])
 		.pipe($.plumber(plumberErrorHandler))
         .pipe($.minifyCSS())
-        .pipe(gulp.dest(dir.min))
+        .pipe($.rename({suffix: '.min'}))
+        .pipe(gulp.dest(dir.css))
         .pipe(browserSync.reload({stream: true}));
 });
-
 
 // minify js
 gulp.task('uglify', function() {
     return gulp.src([dir.js + '/*.js'])
 		.pipe($.plumber(plumberErrorHandler))
         .pipe($.uglify())
-        .pipe(gulp.dest(dir.min))
+        .pipe($.rename({suffix: '.min'}))
+        .pipe(gulp.dest(dir.js))
         .pipe(browserSync.reload({stream: true}));
 });
 
 // Concatenates files
 gulp.task('concat', function() {
 });
-
 
 /// watch
 gulp.task('watch', function() {
@@ -104,10 +105,8 @@ gulp.task('watch', function() {
 });
 
 
-
 // default
 gulp.task('default', ['browser-sync', 'watch']);
-
 
 // release
 gulp.task('release', ['browser-sync', 'watch', 'minifyCSS', 'uglify']);
