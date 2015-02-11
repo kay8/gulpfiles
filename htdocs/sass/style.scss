@@ -1,0 +1,30 @@
+body {
+	box-sizing: border-box;
+}
+
+h1 {
+	color: red;
+	font-size: 30px;
+	margin: 10px;
+}
+
+p {
+	font-size: 16px;
+	margin: 10px;
+}
+
+ul {
+	display: flex;
+	li {
+		width: 200px;
+		height: 200px;
+		background: yellow;
+		border-radius: 50px;
+		margin: 10px;
+		flex-direction: row;
+		line-height: 200px;
+		font-weight: bold;
+		font-size: 30px;
+		text-align: center;
+	}
+}
