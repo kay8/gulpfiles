@@ -20,11 +20,12 @@ var gulp = require('gulp'),
 
 // directory
 var dir = {
-	base: './app',
-	css_min: '.app/dist/styles',
-  js_min: './app/dist/scripts',
-	sass: './app/assets/styles/**/*.scss',
-  js: 'assets/scripts/**/*.js'
+  base: './app',
+	html: 'app/*.html',
+	css_min: 'app/dist/styles',
+  js_min: 'app/dist/scripts',
+	sass: 'app/assets/styles/**/*.scss',
+  js: 'app/assets/scripts/**/*.js'
 };
 
 // error notification settings for plumber
@@ -42,7 +43,7 @@ var plumberErrorHandler = { errorHandler: $.notify.onError({
 
 // set up localhost and synchronize browser
 gulp.task('browser-sync', function () {
-    browserSync({
+    browserSync.init({
         port: 8100,
         browser: "google chrome",
         server: {
@@ -72,7 +73,7 @@ gulp.task('sass', function() {
 
 // minify css
 gulp.task('minifyCSS', function() {
-    return gulp.src(dir.css_min)
+    return gulp.src(dir.css_min + "/*.css")
 		.pipe($.plumber(plumberErrorHandler))
         .pipe($.minifyCSS())
         .pipe(gulp.dest(dir.css_min))
@@ -81,7 +82,7 @@ gulp.task('minifyCSS', function() {
 
 // minify js
 gulp.task('uglify', function() {
-    return gulp.src(dir.js_min)
+    return gulp.src(dir.js_min + "/*.js")
 		.pipe($.plumber(plumberErrorHandler))
         .pipe($.uglify())
         .pipe(gulp.dest(dir.js_min))
@@ -113,18 +114,17 @@ gulp.task('lint', function() {
 // watch
 gulp.task('watch', function() {
 	gulp.watch(dir.js,['lint']);
-  //gulp.watch([dir.sass + '/*.scss', dir.partials + '/*.scss'],['sass']);
 	gulp.watch(dir.sass,['sass']);
-  gulp.watch(dir.js_min,['bs-reload']);
-  gulp.watch(dir.css_min,['bs-reload']);
-	gulp.watch(dir.base + '/*.html',['bs-reload']);
+  // gulp.watch(dir.js_min,['bs-reload']);
+  // gulp.watch(dir.css_min,['bs-reload']);
+	gulp.watch(dir.html,['bs-reload']);
 });
 
 // production watch
 gulp.task('watch_production', function() {
   gulp.watch(dir.js_min,['bs-reload']);
   gulp.watch(dir.css_min,['bs-reload']);
-  gulp.watch(dir.base + '*.html',['bs-reload']);
+  gulp.watch(dir.html,['bs-reload']);
 });
 
 
