@@ -7,7 +7,7 @@ var gulp = require('gulp'),
 			replaceString: /\bgulp[\-.]/,
 			rename: {
 				'gulp-pleeease': 'please',
-				'gulp-minify-css': 'minifyCSS'
+				'gulp-clean-css': 'minifyCSS'
 			}
 
 	});
