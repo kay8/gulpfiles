@@ -1,16 +1,15 @@
 'use strict';
 
 var gulp = require('gulp'),
-	browserSync = require('browser-sync'),
-	$ = require('gulp-load-plugins')({
-			pattern: ['gulp-*', 'gulp.*'],
-			replaceString: /\bgulp[\-.]/,
-			rename: {
-				'gulp-pleeease': 'please',
-				'gulp-clean-css': 'minifyCSS'
-			}
-
-	});
+  browserSync = require('browser-sync'),
+  $ = require('gulp-load-plugins')({
+      pattern: ['gulp-*', 'gulp.*'],
+      replaceString: /\bgulp[\-.]/,
+      rename: {
+        'gulp-pleeease': 'please',
+        'gulp-clean-css': 'minifyCSS'
+      }
+  });
 
 
 /**
@@ -30,9 +29,9 @@ var dir = {
 
 // error notification settings for plumber
 var plumberErrorHandler = { errorHandler: $.notify.onError({
-		title: 'Gulp',
-		message: "Error: <%= error.message %>"
-	})
+    title: 'Gulp',
+    message: "Error: <%= error.message %>"
+  })
 };
 
 
@@ -47,7 +46,7 @@ gulp.task('browser-sync', function () {
         port: 8100,
         browser: "google chrome",
         server: {
-			baseDir: dir.base
+          baseDir: dir.base
         }
     });
 });
@@ -59,34 +58,34 @@ gulp.task('bs-reload', function () {
 
 // compile sass
 gulp.task('sass', function() {
-	return gulp.src(dir.sass)
-	.pipe($.plumber(plumberErrorHandler))
-	.pipe($.sass())
-	.pipe($.please({
-		autoprefixer: {"browsers": ["last 2 versions"]},
-		minifier: false
-	}))
-	.pipe($.csscomb())
-	.pipe(gulp.dest(dir.css_min))
-	.pipe(browserSync.reload({stream: true}));
+  return gulp.src(dir.sass)
+  .pipe($.plumber(plumberErrorHandler))
+  .pipe($.sass())
+  .pipe($.please({
+    autoprefixer: {"browsers": ["last 2 versions"]},
+    minifier: false
+  }))
+  .pipe($.csscomb())
+  .pipe(gulp.dest(dir.css_min))
+  .pipe(browserSync.reload({stream: true}));
 });
 
 // minify css
 gulp.task('minifyCSS', function() {
     return gulp.src(dir.css_min + "/*.css")
-		.pipe($.plumber(plumberErrorHandler))
-        .pipe($.minifyCSS())
-        .pipe(gulp.dest(dir.css_min))
-        .pipe(browserSync.reload({stream: true}));
+    .pipe($.plumber(plumberErrorHandler))
+    .pipe($.minifyCSS())
+    .pipe(gulp.dest(dir.css_min))
+    .pipe(browserSync.reload({stream: true}));
 });
 
 // minify js
 gulp.task('uglify', function() {
     return gulp.src(dir.js_min + "/*.js")
 		.pipe($.plumber(plumberErrorHandler))
-        .pipe($.uglify())
-        .pipe(gulp.dest(dir.js_min))
-        .pipe(browserSync.reload({stream: true}));
+    .pipe($.uglify())
+    .pipe(gulp.dest(dir.js_min))
+    .pipe(browserSync.reload({stream: true}));
 });
 
 // js lint
@@ -113,11 +112,11 @@ gulp.task('lint', function() {
 
 // watch
 gulp.task('watch', function() {
-	gulp.watch(dir.js,['lint']);
-	gulp.watch(dir.sass,['sass']);
+  gulp.watch(dir.js,['lint']);
+  gulp.watch(dir.sass,['sass']);
   // gulp.watch(dir.js_min,['bs-reload']);
   // gulp.watch(dir.css_min,['bs-reload']);
-	gulp.watch(dir.html,['bs-reload']);
+  gulp.watch(dir.html,['bs-reload']);
 });
 
 // production watch
