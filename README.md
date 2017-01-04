@@ -14,6 +14,7 @@ gem install scss_lint
 
 3: Set up folder structure
 
+```
 .
 ├── assets
 │   ├── scripts
@@ -23,5 +24,5 @@ gem install scss_lint
     ├── scripts
     ├── styles
     └── images
-
+```
 
