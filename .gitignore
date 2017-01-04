@@ -1,8 +1,7 @@
 .sass-cache
 .DS_Store
 node_modules
-app/*.html
-app/**/*.css
-app/**/*.js
-app/**/*.scss
+*.html
+assets
+dist
 
