@@ -1,5 +1,7 @@
 # gulpfile
 
+## Install
+
 1: Install modules
 
 ```shell
@@ -26,3 +28,16 @@ gem install scss_lint
     └── images
 ```
 
+## Usage
+
+1: Watch changes in scss and js files and generate the sourcemaps
+
+```shell
+gulp
+```
+
+2: Generate minified / uglified css and js files without sourcemaps
+
+```shell
+gulp production
+```

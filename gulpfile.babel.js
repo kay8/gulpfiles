@@ -60,6 +60,7 @@ gulp.task('bs-reload', () => {
 // compile sass
 gulp.task('sass', () => {
   return gulp.src([dir.sass + '/*.scss', dir.partials + '/*.scss'])
+  .pipe($.sourcemaps.init())
   .pipe($.plumber(plumberErrorHandler))
   .pipe($.sass())
   .pipe($.please({
@@ -67,6 +68,7 @@ gulp.task('sass', () => {
     minifier: false
   }))
   .pipe($.csscomb())
+  .pipe($.sourcemaps.write('.'))
   .pipe(gulp.dest(dir.css_min))
   .pipe(browserSync.reload({stream: true}));
 });
@@ -100,6 +102,7 @@ gulp.task('uglify', () => {
 // js lint
 gulp.task('lint', () => {
   gulp.src([dir.js + '/*.js'])
+    .pipe($.sourcemaps.init())
     .pipe($.jshint())
     .pipe($.babel({
         presets: ['es2015']
@@ -118,6 +121,7 @@ gulp.task('lint', () => {
       }).join("\n");
       return file.relative + " (" + file.jshint.results.length + " errors)\n" + errors;
     }))
+    .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest(dir.js_min))
     .pipe(browserSync.reload({stream: true}));
 });
