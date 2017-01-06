@@ -43,18 +43,18 @@ const plumberErrorHandler = { errorHandler: $.notify.onError({
 
 // set up localhost and synchronize browser
 gulp.task('browser-sync', () => {
-    browserSync({
-        port: 8100,
-        browser: "google chrome",
-        server: {
+  browserSync({
+    port: 8100,
+    browser: "google chrome",
+    server: {
       baseDir: dir.current
-        }
-    });
+    }
+  });
 });
 
 // reload browser when js / html file changes
 gulp.task('bs-reload', () => {
-    browserSync.reload();
+  browserSync.reload();
 });
 
 // compile sass
@@ -83,20 +83,20 @@ gulp.task('scsslint', () => {
 
 // minify css
 gulp.task('minifyCSS', () => {
-    return gulp.src([dir.css_min + '/*.css'])
-    .pipe($.plumber(plumberErrorHandler))
-        .pipe($.minifyCSS())
-        .pipe(gulp.dest(dir.css_min))
-        .pipe(browserSync.reload({stream: true}));
+  return gulp.src([dir.css_min + '/*.css'])
+  .pipe($.plumber(plumberErrorHandler))
+  .pipe($.minifyCSS())
+  .pipe(gulp.dest(dir.css_min))
+  .pipe(browserSync.reload({stream: true}));
 });
 
 // minify js
 gulp.task('uglify', () => {
-    return gulp.src([dir.js_min + '/*.js'])
-    .pipe($.plumber(plumberErrorHandler))
-        .pipe($.uglify())
-        .pipe(gulp.dest(dir.js_min))
-        .pipe(browserSync.reload({stream: true}));
+  return gulp.src([dir.js_min + '/*.js'])
+  .pipe($.plumber(plumberErrorHandler))
+  .pipe($.uglify())
+  .pipe(gulp.dest(dir.js_min))
+  .pipe(browserSync.reload({stream: true}));
 });
 
 // js lint
@@ -135,16 +135,9 @@ gulp.task('watch', () => {
   gulp.watch(dir.current + '/*.html',['bs-reload']);
 });
 
-// production watch
-gulp.task('watch_production', () => {
-  gulp.watch(dir.js_min + '/*.js',['bs-reload']);
-  gulp.watch(dir.css_min + '/*.css',['bs-reload']);
-  gulp.watch(dir.current + '*.html',['bs-reload']);
-});
 
-
-// default
+// default: watch changes without minify / uglify
 gulp.task('default', ['browser-sync', 'watch']);
 
-// release
+// production: only minify and uglify without sourcemaps
 gulp.task('production', ['minifyCSS', 'uglify']);
