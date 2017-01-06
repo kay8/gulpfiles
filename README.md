@@ -8,7 +8,7 @@
 npm install
 ```
 
-2: Install Ruby and [scss-lint](https://github.com/brigade/scss-lint)
+2: Install [scss-lint](https://github.com/brigade/scss-lint) with Ruby being installed
 
 ```shell
 gem install scss_lint
