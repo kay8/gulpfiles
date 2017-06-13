@@ -20,6 +20,7 @@ gem install scss_lint
 .
 ├── assets
 │   ├── scripts
+|   ├── images
 │   └── styles
 │       └── partials
 ├── dist
@@ -30,14 +31,21 @@ gem install scss_lint
 
 ## Usage
 
-1: Watch changes in scss and js files and generate the sourcemaps
+1: Build
+
+```
+gulp build
+```
+
+2: Watch changes in scss and js files and generate the sourcemaps
 
 ```shell
 gulp
 ```
 
-2: Generate minified / uglified css and js files without sourcemaps
+3: Generate minified / uglified css and js files without sourcemaps
 
 ```shell
 gulp production
 ```
+
